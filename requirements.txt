@@ -1,0 +1,4 @@
+fastapi
+uvicorn
+pydantic-settings
+git+https://github.com/RWTH-E3D/CityDPC.git
