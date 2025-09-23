@@ -10,6 +10,11 @@ TwinCityAPI is a standardized server implementation for managing and processing 
 - Automatic CityGML/CityJSON import processing
 - File-based data management system
 
+## License
+
+Available under the Apache 2.0 [License](License.md).
+See the _Cite this repository_ function or the [CITATION.cff](CITATION.cff) for citation of this repository.
+
 ### Caveats
 
 To load CityJSON/CityGML files please place them in the collections directory.
