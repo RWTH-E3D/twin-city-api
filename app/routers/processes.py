@@ -92,27 +92,6 @@ async def get_process(process_id: str):
     )
 
 
-@router.delete("/jobs/{job_id}", response_model=StatusInfo)
-async def cancel_job(job_id: str):
-    """Cancel a running job"""
-    job = process_manager.get_job(job_id)
-    if not job:
-        raise HTTPException(status_code=404, detail="Job not found")
-
-    if job.status in (
-        StatusCode.successful,
-        StatusCode.failed,
-        StatusCode.dismissed,
-    ):
-        raise HTTPException(status_code=400, detail="Job is already complete")
-
-    cancelled = await process_manager.cancel_job(job_id)
-    if not cancelled:
-        raise HTTPException(status_code=400, detail="Could not cancel job")
-
-    return process_manager.get_job(job_id)
-
-
 @router.post("/processes/{process_id}/execution", response_model=StatusInfo)
 async def execute_process(
     process_id: str,
@@ -175,6 +154,27 @@ async def get_job_status(job_id: str):
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
     return job
+
+
+@router.delete("/jobs/{job_id}", response_model=StatusInfo)
+async def cancel_job(job_id: str):
+    """Cancel a running job"""
+    job = process_manager.get_job(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    if job.status in (
+        StatusCode.successful,
+        StatusCode.failed,
+        StatusCode.dismissed,
+    ):
+        raise HTTPException(status_code=400, detail="Job is already complete")
+
+    cancelled = await process_manager.cancel_job(job_id)
+    if not cancelled:
+        raise HTTPException(status_code=400, detail="Could not cancel job")
+
+    return process_manager.get_job(job_id)
 
 
 @router.get("/jobs/{job_id}/results", response_model=Results)
