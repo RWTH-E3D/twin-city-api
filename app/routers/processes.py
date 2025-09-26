@@ -75,6 +75,23 @@ async def get_processes():
     )
 
 
+@router.get("/processes/{process_id}")
+async def get_process(process_id: str):
+    """Retrieve information about a specific process"""
+    process_summaries = process_registry.get_process_summaries()
+
+    for process in process_summaries:
+        if process.id == process_id:
+            return process
+
+    raise HTTPException(
+        status_code=404,
+        detail=f"Process '{process_id}' not found. "
+        + "Available processes: "
+        + str(process_registry.get_available_processes()),
+    )
+
+
 @router.delete("/jobs/{job_id}", response_model=StatusInfo)
 async def cancel_job(job_id: str):
     """Cancel a running job"""
@@ -96,7 +113,7 @@ async def cancel_job(job_id: str):
     return process_manager.get_job(job_id)
 
 
-@router.post("/{process_id}/execution", response_model=StatusInfo)
+@router.post("/processes/{process_id}/execution", response_model=StatusInfo)
 async def execute_process(
     process_id: str,
     execute_request: ExecuteRequest,
