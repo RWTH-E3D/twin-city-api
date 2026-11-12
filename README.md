@@ -1,5 +1,5 @@
 # TwinCityAPI
-
+![](TwinCityAPI-reiter.png)
 TwinCityAPI is a standardized server implementation for managing and processing 3D city models. Built on OGC API specifications, it provides both Features and Processes endpoints for comprehensive urban data management. For an optimal user experience, it is recommended to use this API with the [TwinCityViewer](https://github.com/RWTH-E3D/twin-city-viewer) frontend application.
 
 ## Key Features
